@@ -267,6 +267,7 @@ public class RecyclerViewDragDropManager implements DraggableItemConstants {
 
     // add by dean
     private boolean mHideInitialDraggingItem = true;
+    private float mInitialDraggingItemAlpha;
 
     /**
      * Constructor.
@@ -793,6 +794,9 @@ public class RecyclerViewDragDropManager implements DraggableItemConstants {
             mItemDragEventListener.onItemDragStarted(mWrapperAdapter.getDraggingItemInitialPosition());
             mItemDragEventListener.onItemDragMoveDistanceUpdated(0, 0);
         }
+
+        // add by dean
+        holder.itemView.setAlpha(mInitialDraggingItemAlpha);
     }
 
     /**
@@ -2074,6 +2078,12 @@ public class RecyclerViewDragDropManager implements DraggableItemConstants {
     public void setDraggingItemAlpha(@FloatRange(from = 0.0, to = 1.0) float alpha) {
         mDraggingItemEffectsInfo.alpha = alpha;
     }
+
+    // add by dean
+    public void setInitialDraggingItemAlpha(@FloatRange(from = 0.0, to = 1.0) float alpha) {
+        mInitialDraggingItemAlpha = alpha;
+    }
+
 
     /**
      * Gets dragging item alpha.
