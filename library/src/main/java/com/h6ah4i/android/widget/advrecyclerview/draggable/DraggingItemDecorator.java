@@ -23,7 +23,6 @@ import android.graphics.Rect;
 import android.graphics.drawable.NinePatchDrawable;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Interpolator;
 
@@ -66,11 +65,14 @@ class DraggingItemDecorator extends BaseDraggableItemDecorator {
     private float mLastDraggingItemRotation;
     private float mLastDraggingItemAlpha;
 
+    // add by dean
+    private boolean mHideInitialDraggingItem;
 
-    public DraggingItemDecorator(RecyclerView recyclerView, RecyclerView.ViewHolder draggingItem, ItemDraggableRange range) {
+    public DraggingItemDecorator(RecyclerView recyclerView, RecyclerView.ViewHolder draggingItem, ItemDraggableRange range, boolean hideInitialDraggingItem) {
         super(recyclerView, draggingItem);
         mRange = range;
         mPaint = new Paint();
+        mHideInitialDraggingItem = hideInitialDraggingItem;
     }
 
     private static int clip(int value, int min, int max) {
@@ -205,8 +207,11 @@ class DraggingItemDecorator extends BaseDraggableItemDecorator {
         mLastDraggingItemRotation = 0.0f;
         mLastDraggingItemAlpha = 1.0f;
 
-        // hide
-        itemView.setVisibility(View.INVISIBLE);
+        if (mHideInitialDraggingItem) {
+            itemView.setVisibility(View.INVISIBLE);
+        } else {
+            itemView.setVisibility(View.VISIBLE);
+        }
 
         update(touchX, touchY, true);
 
@@ -454,7 +459,7 @@ class DraggingItemDecorator extends BaseDraggableItemDecorator {
 
     private void updateDraggingItemPosition(float translationX, int translationY) {
         // NOTE: Need to update the view position to make other decorations work properly while dragging
-        if (mDraggingItemViewHolder != null) {
+        if (mDraggingItemViewHolder != null && mHideInitialDraggingItem) {// modify by dean
             setItemTranslation(
                     mRecyclerView, mDraggingItemViewHolder,
                     translationX - mDraggingItemViewHolder.itemView.getLeft(),
@@ -510,4 +515,5 @@ class DraggingItemDecorator extends BaseDraggableItemDecorator {
     private static float getInterpolation(Interpolator interpolator, float input) {
         return (interpolator != null) ? interpolator.getInterpolation(input) : input;
     }
+
 }

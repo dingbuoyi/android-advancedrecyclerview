@@ -265,6 +265,9 @@ public class RecyclerViewDragDropManager implements DraggableItemConstants {
     private SwapTarget mTempSwapTarget = new SwapTarget();
     private FindSwapTargetContext mFindSwapTargetContext = new FindSwapTargetContext();
 
+    // add by dean
+    private boolean mHideInitialDraggingItem = true;
+
     /**
      * Constructor.
      */
@@ -768,7 +771,7 @@ public class RecyclerViewDragDropManager implements DraggableItemConstants {
         // setup decorators
         mWrapperAdapter.onBindViewHolder(holder, wrappedItemPosition);
 
-        mDraggingItemDecorator = new DraggingItemDecorator(mRecyclerView, holder, mRootDraggableRange);
+        mDraggingItemDecorator = new DraggingItemDecorator(mRecyclerView, holder, mRootDraggableRange, mHideInitialDraggingItem);
         mDraggingItemDecorator.setShadowDrawable(mShadowDrawable);
         mDraggingItemDecorator.setupDraggingItemEffects(mDraggingItemEffectsInfo);
         mDraggingItemDecorator.start(mDraggingItemInfo, mLastTouchX, mLastTouchY);
@@ -2126,6 +2129,10 @@ public class RecyclerViewDragDropManager implements DraggableItemConstants {
         final int end = WrapperAdapterUtils.wrapPosition(path, mWrapperAdapter, rootAdapter, src.getEnd());
 
         return new ItemDraggableRange(start, end);
+    }
+
+    public void setHideInitialDraggingItem(boolean hdeInitialDraggingItem) {
+        this.mHideInitialDraggingItem = hdeInitialDraggingItem;
     }
 
     private static class ScrollOnDraggingProcessRunnable implements Runnable {
