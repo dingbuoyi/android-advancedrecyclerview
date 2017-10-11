@@ -86,6 +86,8 @@ public class DraggableGridExampleFragment extends Fragment {
         mRecyclerViewDragDropManager.setDraggingItemAlpha(0.8f);
         mRecyclerViewDragDropManager.setDraggingItemScale(1.3f);
         mRecyclerViewDragDropManager.setDraggingItemRotation(15.0f);
+        mRecyclerViewDragDropManager.setHideInitialDraggingItem(false);
+        mRecyclerViewDragDropManager.setInitialDraggingItemAlpha(0.3f);
 
         //adapter
         final DraggableGridExampleAdapter myItemAdapter = new DraggableGridExampleAdapter(getDataProvider());

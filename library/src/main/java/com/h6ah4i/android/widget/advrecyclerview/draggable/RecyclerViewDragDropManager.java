@@ -796,7 +796,7 @@ public class RecyclerViewDragDropManager implements DraggableItemConstants {
         }
 
         // add by dean
-        holder.itemView.setAlpha(mInitialDraggingItemAlpha);
+        ViewCompat.setAlpha(holder.itemView, mInitialDraggingItemAlpha);
     }
 
     /**

@@ -163,7 +163,7 @@ public abstract class BaseItemAnimationManager<T extends ItemAnimationInfo> {
     }
 
     protected void clearInterpolator(View v) {
-        ViewCompat.setAlpha(v, 1.0F);
+        //ViewCompat.setAlpha(v, 1.0F);
         ViewCompat.setScaleY(v, 1.0F);
         ViewCompat.setScaleX(v, 1.0F);
         ViewCompat.setTranslationY(v, 0.0F);
